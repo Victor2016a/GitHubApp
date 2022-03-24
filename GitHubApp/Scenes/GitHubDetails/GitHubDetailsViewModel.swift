@@ -6,3 +6,28 @@
 //
 
 import Foundation
+
+class GitHubDetailsViewModel {
+  private var apiService = ApiService()
+  private var gitHubDetails = [GitHubDetails]()
+  
+  func fetchGitHubDetailsData(completion: @escaping() -> Void) {
+    apiService.getGitHubDetailsData { [weak self] (result) in
+      switch result {
+      case .success(let listGitHub):
+        self?.gitHubDetails = listGitHub
+        completion()
+      case .failure(let error):
+        print("Error Processing json Data: \(error)")
+      }
+    }
+  }
+  
+  func numberOfRowsInSection(section: Int) -> Int {
+    gitHubDetails.count
+  }
+  
+  func cellForRow(at: IndexPath) -> GitHubDetails {
+    gitHubDetails[at.row]
+  }
+}
