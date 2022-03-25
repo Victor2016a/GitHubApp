@@ -35,6 +35,7 @@ class GitHubDetailsViewController: UIViewController, Coordinating {
   private func loadGitHubDetailsData() {
     self.viewModel.fetchGitHubDetailsData { [weak self] in
       self?.baseView.tableView.reloadData()
+      self?.baseView.spinner.stopAnimating()
     }
   }
 }
@@ -46,7 +47,8 @@ extension GitHubDetailsViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: GitHubDetailsTableViewCell.identifier,
-                                                   for: indexPath) as? GitHubDetailsTableViewCell else { return .init() }
+      for: indexPath) as? GitHubDetailsTableViewCell else { return .init() }
+    
     let gitHubDetails = viewModel.cellForRow(at: indexPath)
     cell.nameProject.text = gitHubDetails.name
     cell.languageCode.text = gitHubDetails.language
@@ -56,9 +58,18 @@ extension GitHubDetailsViewController: UITableViewDataSource {
 
 extension GitHubDetailsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let headerGitHubDetails = tableView.dequeueReusableHeaderFooterView(withIdentifier: GitHubDetailsHeaderTableView.identifier)
+    let headerGitHubDetails = tableView.dequeueReusableHeaderFooterView(withIdentifier: GitHubDetailsHeaderTableView.identifier) as? GitHubDetailsHeaderTableView
+    
+    self.viewModel.fetchGitHubDetailsData { [weak self] in
+      headerGitHubDetails?.nameAvatar.text = self?.viewModel.gitHubDetails[0].owner?.login
+      guard let url = self?.viewModel.gitHubDetails[0].owner?.avatar_url else { return }
+      downloadImageFrom(url: url) { image, error in
+        headerGitHubDetails?.imageAvatar.image = image
+      }
+    }
     return headerGitHubDetails
   }
+  
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     200
   }

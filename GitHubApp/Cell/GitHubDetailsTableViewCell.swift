@@ -13,6 +13,7 @@ class GitHubDetailsTableViewCell: UITableViewCell {
   var nameProject: UILabel = {
     let label = UILabel()
     label.font = .boldSystemFont(ofSize: 20)
+    label.numberOfLines = 0
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
@@ -44,6 +45,7 @@ class GitHubDetailsTableViewCell: UITableViewCell {
     NSLayoutConstraint.activate([
       nameProject.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
       nameProject.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+      nameProject.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
       
       languageCode.topAnchor.constraint(equalTo: nameProject.bottomAnchor, constant: 5),
       languageCode.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),

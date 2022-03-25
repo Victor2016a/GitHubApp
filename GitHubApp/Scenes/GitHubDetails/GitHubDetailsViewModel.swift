@@ -9,7 +9,7 @@ import Foundation
 
 class GitHubDetailsViewModel {
   private var apiService = ApiService()
-  private var gitHubDetails = [GitHubDetails]()
+  var gitHubDetails = [GitHubDetails]()
   
   func fetchGitHubDetailsData(completion: @escaping() -> Void) {
     apiService.getGitHubDetailsData { [weak self] (result) in

@@ -9,10 +9,10 @@ import Foundation
 
 class ApiService {
   private var dataTask: URLSessionDataTask?
-//  private let baseURL = "https://api.github.com/users/"
+  private let baseURL = "https://api.github.com/users/"
   
   func getGitHubDetailsData(complention: @escaping (Result<[GitHubDetails], Error>) -> Void) {
-    let gitHubURL = "https://api.github.com/users/victor2016a/repos"
+    let gitHubURL = baseURL + "yan-victor21" + "/repos"
     
     guard let url = URL(string: gitHubURL) else { return }
     

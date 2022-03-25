@@ -14,6 +14,12 @@ class GitHubDetailsView: UIView {
     return tableView
   }()
   
+  let spinner: UIActivityIndicatorView = {
+    let spinner = UIActivityIndicatorView(style: .large)
+    spinner.translatesAutoresizingMaskIntoConstraints = false
+    return spinner
+  }()
+  
   override init(frame: CGRect) {
     super.init(frame: .zero)
     setupView()
@@ -27,6 +33,8 @@ class GitHubDetailsView: UIView {
   private func setupView() {
     backgroundColor = .white
     addSubview(tableView)
+    spinner.startAnimating()
+    addSubview(spinner)
   }
   
   private func setupConstraints() {
@@ -34,7 +42,10 @@ class GitHubDetailsView: UIView {
       tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
       tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
       tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+      tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      
+      spinner.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+      spinner.centerYAnchor.constraint(equalTo: tableView.centerYAnchor)
     ])
   }
 }

@@ -12,13 +12,13 @@ class GitHubDetailsHeaderTableView: UITableViewHeaderFooterView {
   
   var imageAvatar: UIImageView = {
     let imageView = UIImageView()
+    imageView.contentMode = .scaleAspectFill
     imageView.translatesAutoresizingMaskIntoConstraints = false
     return imageView
   }()
   
   var nameAvatar: UILabel = {
     let label = UILabel()
-    label.text = "Victor2016a"
     label.textAlignment = .center
     label.font = .systemFont(ofSize: 20)
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -42,15 +42,16 @@ class GitHubDetailsHeaderTableView: UITableViewHeaderFooterView {
   
   private func setupConstraints() {
     NSLayoutConstraint.activate([
-//      imageAvatar.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-//      imageAvatar.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-//      imageAvatar.heightAnchor.constraint(equalToConstant: 200),
-//      imageAvatar.widthAnchor.constraint(equalToConstant: 200),
+      imageAvatar.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+      imageAvatar.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+      imageAvatar.heightAnchor.constraint(equalToConstant: 180),
+      imageAvatar.widthAnchor.constraint(equalToConstant: 180),
+      imageAvatar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
       
-      nameAvatar.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+      nameAvatar.topAnchor.constraint(equalTo: imageAvatar.bottomAnchor),
       nameAvatar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
       nameAvatar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-      nameAvatar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+
     ])
   }
 }
