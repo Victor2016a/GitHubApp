@@ -11,6 +11,16 @@ class GitHubDetailsViewController: UIViewController, Coordinating {
   var coordinator: Coordinator?
   private var baseView = GitHubDetailsView()
   private var viewModel = GitHubDetailsViewModel()
+  private var nameSearch: String?
+  
+  init(nameSearch: String?){
+    super.init(nibName: nil, bundle: nil)
+    self.nameSearch = nameSearch
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,7 +43,9 @@ class GitHubDetailsViewController: UIViewController, Coordinating {
   }
   
   private func loadGitHubDetailsData() {
-    self.viewModel.fetchGitHubDetailsData { [weak self] in
+    guard let nameSearch = nameSearch else { return }
+
+    self.viewModel.fetchGitHubDetailsData(from: nameSearch) { [weak self] in
       self?.baseView.tableView.reloadData()
       self?.baseView.spinner.stopAnimating()
     }
@@ -60,7 +72,9 @@ extension GitHubDetailsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerGitHubDetails = tableView.dequeueReusableHeaderFooterView(withIdentifier: GitHubDetailsHeaderTableView.identifier) as? GitHubDetailsHeaderTableView
     
-    self.viewModel.fetchGitHubDetailsData { [weak self] in
+    guard let nameSearch = nameSearch else { return headerGitHubDetails }
+    
+    self.viewModel.fetchGitHubDetailsData(from: nameSearch) { [weak self] in
       headerGitHubDetails?.nameAvatar.text = self?.viewModel.gitHubDetails[0].owner?.login
       guard let url = self?.viewModel.gitHubDetails[0].owner?.avatar_url else { return }
       downloadImageFrom(url: url) { image, error in

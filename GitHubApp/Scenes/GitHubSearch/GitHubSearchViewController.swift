@@ -29,7 +29,7 @@ class GitHubSearchViewController: UIViewController, Coordinating {
   }
   
   @objc private func didTapButton() {
-    coordinator?.eventOccurred(with: .searchButtonTapped)
+    navigationController?.pushViewController(GitHubDetailsViewController(nameSearch: baseView.textField.text), animated: true)
   }
 }
 

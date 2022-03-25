@@ -11,8 +11,8 @@ class ApiService {
   private var dataTask: URLSessionDataTask?
   private let baseURL = "https://api.github.com/users/"
   
-  func getGitHubDetailsData(complention: @escaping (Result<[GitHubDetails], Error>) -> Void) {
-    let gitHubURL = baseURL + "yan-victor21" + "/repos"
+  func getGitHubDetailsData(from nameSearch: String, complention: @escaping (Result<[GitHubDetails], Error>) -> Void) {
+    let gitHubURL = baseURL + nameSearch + "/repos"
     
     guard let url = URL(string: gitHubURL) else { return }
     

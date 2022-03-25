@@ -46,9 +46,9 @@ class GitHubDetailsHeaderTableView: UITableViewHeaderFooterView {
       imageAvatar.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
       imageAvatar.heightAnchor.constraint(equalToConstant: 180),
       imageAvatar.widthAnchor.constraint(equalToConstant: 180),
-      imageAvatar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+      imageAvatar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
       
-      nameAvatar.topAnchor.constraint(equalTo: imageAvatar.bottomAnchor),
+      nameAvatar.topAnchor.constraint(equalTo: imageAvatar.bottomAnchor, constant: 5),
       nameAvatar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
       nameAvatar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
 

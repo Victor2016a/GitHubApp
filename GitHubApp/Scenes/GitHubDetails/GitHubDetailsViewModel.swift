@@ -11,8 +11,8 @@ class GitHubDetailsViewModel {
   private var apiService = ApiService()
   var gitHubDetails = [GitHubDetails]()
   
-  func fetchGitHubDetailsData(completion: @escaping() -> Void) {
-    apiService.getGitHubDetailsData { [weak self] (result) in
+  func fetchGitHubDetailsData(from nameSearch: String ,completion: @escaping() -> Void) {
+    apiService.getGitHubDetailsData(from: nameSearch) { [weak self] (result) in
       switch result {
       case .success(let listGitHub):
         self?.gitHubDetails = listGitHub

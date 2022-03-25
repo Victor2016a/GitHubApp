@@ -11,12 +11,12 @@ class MainCoordinator: Coordinator {
   var navigationController: UINavigationController?
   
   func eventOccurred(with type: Event) {
-    switch type {
-    case .searchButtonTapped:
-      var gitHubDetailsViewController: UIViewController & Coordinating = GitHubDetailsViewController()
-      gitHubDetailsViewController.coordinator = self
-      navigationController?.pushViewController(gitHubDetailsViewController, animated: true)
-    }
+//    switch type {
+//    case .searchButtonTapped:
+//      var gitHubDetailsViewController: UIViewController & Coordinating = GitHubDetailsViewController()
+//      gitHubDetailsViewController.coordinator = self
+//      navigationController?.pushViewController(gitHubDetailsViewController, animated: true)
+//    }
   }
   
   func start() {

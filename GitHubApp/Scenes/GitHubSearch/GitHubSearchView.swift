@@ -8,7 +8,7 @@
 import UIKit
 
 class GitHubSearchView: UIView {
-  private let textField: UITextField = {
+  let textField: UITextField = {
     let textField = UITextField()
     textField.placeholder = "Username"
     textField.borderStyle = .roundedRect
