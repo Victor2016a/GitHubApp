@@ -47,12 +47,17 @@ class GitHubDetailsViewController: UIViewController, Coordinating {
 
     self.viewModel.fetchGitHubDetailsData(from: nameSearch) { [weak self] in
       self?.baseView.tableView.reloadData()
-      self?.baseView.spinner.stopAnimating()
+      if self?.viewModel.gitHubDetails.count != 0 {
+        self?.baseView.spinner.stopAnimating()
+      } else {
+        self?.alertUsername()
+      }
     }
   }
   
-  func checkUsernameExist() {
-    let alert = UIAlertController(title: "Username does not exist!",
+  private func alertUsername() {
+    guard let nameSearch = nameSearch else { return }
+    let alert = UIAlertController(title: "\(String(describing: nameSearch)) does not exist!",
                                   message: "Please, try another Username.",
                                   preferredStyle: .alert)
     
@@ -88,6 +93,8 @@ extension GitHubDetailsViewController: UITableViewDelegate {
     guard let nameSearch = nameSearch else { return headerGitHubDetails }
     
     self.viewModel.fetchGitHubDetailsData(from: nameSearch) { [weak self] in
+      if self?.viewModel.gitHubDetails.count == 0 { return }
+      
       guard let nameAvatar = self?.viewModel.gitHubDetails[0].owner?.login else { return }
       headerGitHubDetails?.nameAvatar.text = nameAvatar
       

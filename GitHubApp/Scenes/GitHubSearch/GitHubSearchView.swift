@@ -37,7 +37,7 @@ class GitHubSearchView: UIView {
   }
   
   private func setupView() {
-    backgroundColor = .white
+    backgroundColor = .lightGray
     addSubview(textField)
     addSubview(button)
   }

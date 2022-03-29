@@ -19,6 +19,7 @@ class GitHubDetailsViewModel {
         completion()
       case .failure(let error):
         print("Error Processing json Data: \(error)")
+        completion()
       }
     }
   }
