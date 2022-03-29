@@ -20,7 +20,8 @@ class GitHubSearchView: UIView {
   let button: UIButton = {
     let button = UIButton()
     button.setTitle("Search", for: .normal)
-    button.setTitleColor(.systemBlue, for: .normal)
+    button.setTitleColor(.white, for: .normal)
+    button.backgroundColor = .systemBlue
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
   }()

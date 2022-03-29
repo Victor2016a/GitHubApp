@@ -50,6 +50,19 @@ class GitHubDetailsViewController: UIViewController, Coordinating {
       self?.baseView.spinner.stopAnimating()
     }
   }
+  
+  func checkUsernameExist() {
+    let alert = UIAlertController(title: "Username does not exist!",
+                                  message: "Please, try another Username.",
+                                  preferredStyle: .alert)
+    
+    alert.addAction(UIAlertAction(title: "Done",
+                                  style: .cancel,
+                                  handler: { action in
+    self.navigationController?.popViewController(animated: true)
+    }))
+    present(alert, animated: true, completion: nil)
+  }
 }
 
 extension GitHubDetailsViewController: UITableViewDataSource {
@@ -75,10 +88,16 @@ extension GitHubDetailsViewController: UITableViewDelegate {
     guard let nameSearch = nameSearch else { return headerGitHubDetails }
     
     self.viewModel.fetchGitHubDetailsData(from: nameSearch) { [weak self] in
-      headerGitHubDetails?.nameAvatar.text = self?.viewModel.gitHubDetails[0].owner?.login
+      guard let nameAvatar = self?.viewModel.gitHubDetails[0].owner?.login else { return }
+      headerGitHubDetails?.nameAvatar.text = nameAvatar
+      
       guard let url = self?.viewModel.gitHubDetails[0].owner?.avatar_url else { return }
       downloadImageFrom(url: url) { image, error in
         headerGitHubDetails?.imageAvatar.image = image
+        headerGitHubDetails?.imageAvatar.layer.masksToBounds = true
+        
+        guard let width = headerGitHubDetails?.imageAvatar.bounds.width else { return }
+        headerGitHubDetails?.imageAvatar.layer.cornerRadius = width/2
       }
     }
     return headerGitHubDetails

@@ -29,7 +29,8 @@ class GitHubSearchViewController: UIViewController, Coordinating {
   }
   
   @objc private func didTapButton() {
-    navigationController?.pushViewController(GitHubDetailsViewController(nameSearch: baseView.textField.text), animated: true)
+    let nameUsername = baseView.textField.text
+    navigationController?.pushViewController(GitHubDetailsViewController(nameSearch: nameUsername), animated: true)
   }
 }
 
