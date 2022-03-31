@@ -8,7 +8,7 @@
 import UIKit
 
 enum Event {
-  case searchButtonTapped
+  case searchButtonTapped(username: String)
 }
 
 protocol Coordinator {
