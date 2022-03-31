@@ -12,7 +12,7 @@ class GitHubSearchView: UIView {
     let textField = UITextField()
     textField.placeholder = "Username"
     textField.borderStyle = .roundedRect
-    textField.font = .systemFont(ofSize: 20)
+    textField.font = .systemFont(ofSize: 22)
     textField.translatesAutoresizingMaskIntoConstraints = false
     return textField
   }()
@@ -24,6 +24,15 @@ class GitHubSearchView: UIView {
     button.backgroundColor = .systemBlue
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
+  }()
+  
+  private lazy var stackView: UIStackView = {
+    let stackView = UIStackView(arrangedSubviews: [textField, button])
+    stackView.axis = .vertical
+    stackView.alignment = .center
+    stackView.spacing = 15
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    return stackView
   }()
   
   override init(frame: CGRect) {
@@ -38,21 +47,19 @@ class GitHubSearchView: UIView {
   
   private func setupView() {
     backgroundColor = .lightGray
-    addSubview(textField)
-    addSubview(button)
+    addSubview(stackView)
   }
   
   private func setupConstraints() {
     NSLayoutConstraint.activate([
-      textField.centerXAnchor.constraint(equalTo: centerXAnchor),
-      textField.centerYAnchor.constraint(equalTo: centerYAnchor),
-      textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-      textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+      stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+      stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+      stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
       
-      button.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 20),
-      button.centerXAnchor.constraint(equalTo: centerXAnchor),
-      button.heightAnchor.constraint(equalToConstant: 50),
-      button.widthAnchor.constraint(equalToConstant: 100),
+      textField.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+      textField.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+      
+      button.widthAnchor.constraint(equalToConstant: 100)
     ])
   }
 }
