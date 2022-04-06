@@ -23,7 +23,7 @@ class ApiService {
           return
         }
         guard let data = data else { return }
-
+        
         do {
           let jsonData = try JSONDecoder().decode([GitHubDetails].self, from: data)
           complention(.success(jsonData))

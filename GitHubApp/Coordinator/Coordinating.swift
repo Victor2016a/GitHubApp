@@ -14,7 +14,8 @@ class MainCoordinator: Coordinator {
   func eventOccurred(with type: Event) {
     switch type {
     case .searchButtonTapped(let username):
-      navigationController?.pushViewController(GitHubDetailsViewController(nameSearch: username),
+      let viewModel = GitHubDetailsViewModel(nameSearch: username)
+      navigationController?.pushViewController(GitHubDetailsViewController(viewModel: viewModel),
                                                animated: true)
     }
   }
