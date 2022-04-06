@@ -22,7 +22,7 @@
 		1367E01427E50DB200B8F9C3 /* GitHubDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1367E01327E50DB200B8F9C3 /* GitHubDetailsViewController.swift */; };
 		1367E01727E50EAF00B8F9C3 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1367E01627E50EAF00B8F9C3 /* ApiService.swift */; };
 		1394BE7A27FB63EE000D618D /* GitHubDetailsViewModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1394BE7927FB63EE000D618D /* GitHubDetailsViewModelCell.swift */; };
-		13D0881D27ECCE2100041FAE /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D0881C27ECCE2100041FAE /* GetImage.swift */; };
+		13D0881D27ECCE2100041FAE /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D0881C27ECCE2100041FAE /* ImageProvider.swift */; };
 		13D0881F27ECD7AB00041FAE /* GitHubDetailsHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D0881E27ECD7AB00041FAE /* GitHubDetailsHeaderTableView.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +44,7 @@
 		1367E01327E50DB200B8F9C3 /* GitHubDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubDetailsViewController.swift; sourceTree = "<group>"; };
 		1367E01627E50EAF00B8F9C3 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		1394BE7927FB63EE000D618D /* GitHubDetailsViewModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubDetailsViewModelCell.swift; sourceTree = "<group>"; };
-		13D0881C27ECCE2100041FAE /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
+		13D0881C27ECCE2100041FAE /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		13D0881E27ECD7AB00041FAE /* GitHubDetailsHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubDetailsHeaderTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,7 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				1367E01627E50EAF00B8F9C3 /* ApiService.swift */,
-				13D0881C27ECCE2100041FAE /* GetImage.swift */,
+				13D0881C27ECCE2100041FAE /* ImageProvider.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -235,7 +235,7 @@
 				1367E00A27E508CE00B8F9C3 /* GitHubDetailsView.swift in Sources */,
 				135B7A1327EBA9B60021F79A /* GitHubDetailsTableViewCell.swift in Sources */,
 				1367E01127E509DE00B8F9C3 /* Coordinating.swift in Sources */,
-				13D0881D27ECCE2100041FAE /* GetImage.swift in Sources */,
+				13D0881D27ECCE2100041FAE /* ImageProvider.swift in Sources */,
 				1367E01727E50EAF00B8F9C3 /* ApiService.swift in Sources */,
 				1367DFEF27E4E00700B8F9C3 /* AppDelegate.swift in Sources */,
 				13D0881F27ECD7AB00041FAE /* GitHubDetailsHeaderTableView.swift in Sources */,

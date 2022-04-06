@@ -103,7 +103,7 @@ extension GitHubDetailsViewController: UITableViewDataSource {
 extension GitHubDetailsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerGitHubDetails = tableView.dequeueReusableHeaderFooterView(withIdentifier: GitHubDetailsHeaderTableView.identifier) as? GitHubDetailsHeaderTableView
-        
+    
     self.viewModel.fetchGitHubDetailsData() { [weak self] result in
       if self?.viewModel.gitHubDetails.count == 0 { return }
       
@@ -111,7 +111,7 @@ extension GitHubDetailsViewController: UITableViewDelegate {
       headerGitHubDetails?.nameAvatar.text = nameAvatar
       
       guard let url = self?.viewModel.gitHubDetails[0].owner?.avatar_url else { return }
-      downloadImageFrom(url: url) { image, error in
+      ImageProvider.shared.fecthImage(url: url) { image in
         headerGitHubDetails?.imageAvatar.image = image
         headerGitHubDetails?.imageAvatar.layer.masksToBounds = true
         
