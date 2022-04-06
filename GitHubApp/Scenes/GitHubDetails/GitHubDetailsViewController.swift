@@ -10,12 +10,11 @@ import UIKit
 class GitHubDetailsViewController: UIViewController, Coordinating {
   var coordinator: Coordinator?
   private var baseView = GitHubDetailsView()
-  private var viewModel = GitHubDetailsViewModel()
-  private var nameSearch: String?
+  private var viewModel: GitHubDetailsViewModel
   
-  init(nameSearch: String?){
+  init(viewModel: GitHubDetailsViewModel){
+    self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
-    self.nameSearch = nameSearch
   }
   
   required init?(coder: NSCoder) {
@@ -43,22 +42,38 @@ class GitHubDetailsViewController: UIViewController, Coordinating {
   }
   
   private func loadGitHubDetailsData() {
-    guard let nameSearch = nameSearch else { return }
 
-    self.viewModel.fetchGitHubDetailsData(from: nameSearch) { [weak self] in
-      self?.baseView.tableView.reloadData()
-      if self?.viewModel.gitHubDetails.count != 0 {
-        self?.baseView.spinner.stopAnimating()
-      } else {
-        self?.alertUsername()
+    viewModel.fetchGitHubDetailsData() { [weak self] result in
+      switch result {
+      case .success:
+        self?.baseView.tableView.reloadData()
+        if self?.viewModel.gitHubDetails.count != 0 {
+          self?.baseView.spinner.stopAnimating()
+        } else {
+          self?.alertUsernameEmpty()
+        }
+      case .failure:
+        self?.alertUsernameDontExist()
       }
     }
   }
   
-  private func alertUsername() {
-    guard let nameSearch = nameSearch else { return }
-    let alert = UIAlertController(title: "\(String(describing: nameSearch)) does not exist!",
-                                  message: "Please, try another Username.",
+  private func alertUsernameEmpty() {
+    let alert = UIAlertController(title: "Empty!",
+                                  message: "Don't Have Project.",
+                                  preferredStyle: .alert)
+    
+    alert.addAction(UIAlertAction(title: "Done",
+                                  style: .cancel,
+                                  handler: { action in
+    self.navigationController?.popViewController(animated: true)
+    }))
+    present(alert, animated: true, completion: nil)
+  }
+  
+  private func alertUsernameDontExist() {
+    let alert = UIAlertController(title: "\(viewModel.nameSearch) does not exist!",
+                                  message: "Please, try another Username",
                                   preferredStyle: .alert)
     
     alert.addAction(UIAlertAction(title: "Done",
@@ -79,9 +94,8 @@ extension GitHubDetailsViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: GitHubDetailsTableViewCell.identifier,
       for: indexPath) as? GitHubDetailsTableViewCell else { return .init() }
     
-    let gitHubDetails = viewModel.cellForRow(at: indexPath)
-    cell.nameProject.text = gitHubDetails.name
-    cell.languageCode.text = gitHubDetails.language
+    let viewModel = viewModel.cellForRow(at: indexPath)
+    cell.configure(viewModel: viewModel)
     return cell
   }
 }
@@ -89,10 +103,8 @@ extension GitHubDetailsViewController: UITableViewDataSource {
 extension GitHubDetailsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerGitHubDetails = tableView.dequeueReusableHeaderFooterView(withIdentifier: GitHubDetailsHeaderTableView.identifier) as? GitHubDetailsHeaderTableView
-    
-    guard let nameSearch = nameSearch else { return headerGitHubDetails }
-    
-    self.viewModel.fetchGitHubDetailsData(from: nameSearch) { [weak self] in
+        
+    self.viewModel.fetchGitHubDetailsData() { [weak self] result in
       if self?.viewModel.gitHubDetails.count == 0 { return }
       
       guard let nameAvatar = self?.viewModel.gitHubDetails[0].owner?.login else { return }

@@ -10,16 +10,20 @@ import Foundation
 class GitHubDetailsViewModel {
   private var apiService = ApiService()
   var gitHubDetails = [GitHubDetails]()
+  var nameSearch: String
   
-  func fetchGitHubDetailsData(from nameSearch: String ,completion: @escaping() -> Void) {
+  init(nameSearch: String) {
+    self.nameSearch = nameSearch
+  }
+  
+  func fetchGitHubDetailsData(completion: @escaping (Result<[GitHubDetails], Error>) -> Void) {
     apiService.getGitHubDetailsData(from: nameSearch) { [weak self] (result) in
       switch result {
       case .success(let listGitHub):
         self?.gitHubDetails = listGitHub
-        completion()
+        completion(.success(listGitHub))
       case .failure(let error):
-        print("Error Processing json Data: \(error)")
-        completion()
+        completion(.failure(error))
       }
     }
   }
@@ -28,7 +32,11 @@ class GitHubDetailsViewModel {
     gitHubDetails.count
   }
   
-  func cellForRow(at: IndexPath) -> GitHubDetails {
-    gitHubDetails[at.row]
+  func cellForRow(at indexPath: IndexPath) -> GitHubDetailsViewModelCell {
+    let gitHubDetail = gitHubDetails[indexPath.row]
+    return .init(
+      nameProject: gitHubDetail.name ?? "",
+      languageProject: gitHubDetail.language ?? ""
+    )
   }
 }

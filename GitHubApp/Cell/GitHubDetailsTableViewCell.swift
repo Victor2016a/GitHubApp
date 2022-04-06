@@ -36,6 +36,11 @@ class GitHubDetailsTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
+  func configure(viewModel: GitHubDetailsViewModelCell) {
+    nameProject.text = viewModel.nameProject
+    languageCode.text = viewModel.languageProject
+  }
+  
   private func setupView() {
     contentView.addSubview(nameProject)
     contentView.addSubview(languageCode)
