@@ -39,4 +39,13 @@ class GitHubDetailsViewModel {
       languageProject: gitHubDetail.language ?? ""
     )
   }
+  
+  func headerSection() -> GitHubDetailsHeaderViewModel {
+    let gitHubHeaderDetail = gitHubDetails.first
+    return .init(
+      login: gitHubHeaderDetail?.owner?.login ?? "",
+      avatar_url: gitHubHeaderDetail?.owner?.avatar_url ?? URL(fileURLWithPath: "")
+    )
+  }
+  
 }
