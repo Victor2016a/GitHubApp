@@ -16,19 +16,16 @@ class ImageProvider {
   
   func fecthImage(url: URL, completion: @escaping (UIImage?) -> Void) {
     if let image = cache.object(forKey: url.absoluteString as NSString) {
-      print("Using Cache")
       completion(image)
       return
     }
     
-    print("Feching image")
     let task = URLSession.shared.dataTask(with: url) { [weak self] data, _ , error in
-      guard let data = data, error == nil else {
-        completion(nil)
-        return
-      }
-      
       DispatchQueue.main.async {
+        guard let data = data, error == nil else {
+          completion(nil)
+          return
+        }
         guard let image = UIImage(data: data) else {
           completion(nil)
           return

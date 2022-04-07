@@ -35,6 +35,20 @@ class GitHubDetailsHeaderTableView: UITableViewHeaderFooterView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  func configure(viewModel: GitHubDetailsHeaderViewModel) {
+    nameAvatar.text = viewModel.login
+    guard let url = viewModel.avatar_url else { return }
+    
+    ImageProvider.shared.fecthImage(url: url) { [weak self] image in
+      DispatchQueue.main.async {
+        self?.imageAvatar.image = image
+        self?.imageAvatar.layer.masksToBounds = true
+        guard let width = self?.imageAvatar.bounds.width else { return }
+        self?.imageAvatar.layer.cornerRadius = width/2
+      }
+    }
+  }
+  
   private func setupHeader() {
     addSubview(imageAvatar)
     addSubview(nameAvatar)
@@ -51,7 +65,6 @@ class GitHubDetailsHeaderTableView: UITableViewHeaderFooterView {
       nameAvatar.topAnchor.constraint(equalTo: imageAvatar.bottomAnchor, constant: 5),
       nameAvatar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
       nameAvatar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-
     ])
   }
 }
